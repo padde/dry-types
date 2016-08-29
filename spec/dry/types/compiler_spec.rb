@@ -28,7 +28,7 @@ RSpec.describe Dry::Types::Compiler, '#call' do
 
     hash = compiler.(ast)
 
-    expect(hash).to be_instance_of(Dry::Types::Hash::Permissive)
+    expect(hash).to be_a(Dry::Types::Hash)
 
     result = hash[
       email: 'jane@doe.org',
@@ -60,7 +60,7 @@ RSpec.describe Dry::Types::Compiler, '#call' do
 
     hash = compiler.(ast)
 
-    expect(hash).to be_instance_of(Dry::Types::Hash::Strict)
+    expect(hash).to be_a(Dry::Types::Hash)
 
     expect { hash[email: 'jane@doe.org', unexpected_key: 'not allowed'] }
       .to raise_error(Dry::Types::UnknownKeyError, /unexpected_key/)
@@ -83,7 +83,7 @@ RSpec.describe Dry::Types::Compiler, '#call' do
 
     hash = compiler.(ast)
 
-    expect(hash).to be_instance_of(Dry::Types::Hash::Weak)
+    expect(hash).to be_a(Dry::Types::Hash)
 
     result = hash[foo: 'bar', email: 'jane@doe.org', age: '20', admin: '1']
 
@@ -113,7 +113,7 @@ RSpec.describe Dry::Types::Compiler, '#call' do
 
     hash = compiler.(ast)
 
-    expect(hash).to be_instance_of(Dry::Types::Hash::Symbolized)
+    expect(hash).to be_a(Dry::Types::Hash)
 
     expect(hash['foo' => 'bar', 'email' => 'jane@doe.org', 'age' => '20', 'admin' => '1']).to eql(
       email: 'jane@doe.org', age: 20, admin: true
@@ -155,7 +155,7 @@ RSpec.describe Dry::Types::Compiler, '#call' do
 
     arr = compiler.(ast)
 
-    expect(arr).to be_instance_of(Dry::Types::Array::Member)
+    expect(arr).to be_a(Dry::Types::Array)
 
     input = [
       'foo' => 'bar', 'email' => 'jane@doe.org', 'age' => '20', 'admin' => '1'
